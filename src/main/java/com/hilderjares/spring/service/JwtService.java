@@ -1,7 +1,8 @@
 package com.hilderjares.spring.service;
 
 import com.auth0.jwt.JWT;
-import com.hilderjares.spring.entity.User;
+import com.hilderjares.spring.entity.UserDomain;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class JwtService {
 
     private String token;
 
-    public String authentication(User user) throws BadCredentialsException {
+    public String authentication(UserDomain user) throws BadCredentialsException {
 
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
@@ -36,5 +37,4 @@ public class JwtService {
 
         return this.token;
     }
-
 }

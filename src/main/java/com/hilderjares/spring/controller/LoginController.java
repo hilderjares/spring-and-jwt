@@ -1,6 +1,6 @@
 package com.hilderjares.spring.controller;
 
-import com.hilderjares.spring.entity.User;
+import com.hilderjares.spring.entity.UserDomain;
 import com.hilderjares.spring.security.Response;
 import com.hilderjares.spring.service.JwtService;
 
@@ -22,7 +22,7 @@ public class LoginController {
     private String token;
 
     @RequestMapping(value = "/api/login", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody User user) {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody UserDomain user) {
         try {
             this.token = jwtService.authentication(user);
         } catch (BadCredentialsException e) {
