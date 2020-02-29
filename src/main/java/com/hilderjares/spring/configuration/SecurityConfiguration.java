@@ -49,10 +49,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // auth.userDetailsService(this.myUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
-        auth.inMemoryAuthentication()
-            .withUser("admin")
-            .password(bCryptPasswordEncoder.encode("admin"))
-            .roles("ADMIN");
+        
+        auth.userDetailsService(this.myUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        
+        // auth.inMemoryAuthentication()
+        //     .withUser("admin")
+        //     .password(bCryptPasswordEncoder.encode("admin"))
+        //     .roles("ADMIN");
     }
 }
