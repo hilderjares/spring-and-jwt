@@ -1,7 +1,10 @@
 package com.hilderjares.spring.service;
 
-import java.util.ArrayList;
+import java.util.Collections;
 
+import com.hilderjares.spring.entity.UserDomain;
+import com.hilderjares.spring.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,14 +14,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
-    private ArrayList authorities;
+    @Autowired
+    private UserRepository userRepository;
 
-    public MyUserDetailsService() {
-        this.authorities = null;
-    }
- 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return new User("test", "test", this.authorities);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserDomain user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return new User(user.getUsername(), user.getPassword(), Collections.emptyList());
     }
 }
